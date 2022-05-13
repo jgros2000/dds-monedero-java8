@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Cuenta {
 
-  private double saldo = 0; //No es neceserio definir el default ya que se hace en el constructor
+  private double saldo; //No es neceserio definir el default ya que se hace en el constructor
   private List<Movimiento> movimientos = new ArrayList<>();
 
   public Cuenta() {
