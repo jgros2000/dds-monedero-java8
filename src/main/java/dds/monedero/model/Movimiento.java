@@ -44,16 +44,4 @@ public class Movimiento {
     return !esDeposito;
   }
 
-  public void agregateA(Cuenta cuenta) { //No deberia existir este metodo, se tiene que encargar la cuenta
-    cuenta.setSaldo(calcularValor(cuenta));
-    cuenta.agregarMovimiento(fecha, monto, esDeposito);
-  }
-
-  public double calcularValor(Cuenta cuenta) { //No deberia existir este metodo, porque se usa solo enla de arriba
-    if (esDeposito) {
-      return cuenta.getSaldo() + getMonto();
-    } else {
-      return cuenta.getSaldo() - getMonto();
-    }
-  }
 }
