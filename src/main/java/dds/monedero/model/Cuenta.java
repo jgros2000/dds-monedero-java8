@@ -35,23 +35,23 @@ public class Cuenta {
       throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
     }
 
-    new Movimiento(LocalDate.now(), cantidadDinero, true).agregateA(this); // Usar funcion agregarMovimiento en vez de esto
+    this.agregarMovimiento(LocalDate.now(), cantidadDinero, true); // Usar funcion agregarMovimiento en vez de esto
   }
 
-  public void sacar(double cuanto) {//Nombre de la variable "cuanto" es poco declarativo, seria mejor "cantidadDinero"
-    if (cuanto <= 0) {
-      throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
+  public void sacar(double cantidadDinero) {//Nombre de la variable "cuanto" es poco declarativo, seria mejor "cantidadDinero"
+    if (cantidadDinero <= 0) {
+      throw new MontoNegativoException(cantidadDinero + ": el monto a ingresar debe ser un valor positivo");
     }
-    if (getSaldo() - cuanto < 0) {
+    if (getSaldo() - cantidadDinero < 0) {
       throw new SaldoMenorException("No puede sacar mas de " + getSaldo() + " $");
     }
     double montoExtraidoHoy = getMontoExtraidoA(LocalDate.now());
     double limite = 1000 - montoExtraidoHoy;
-    if (cuanto > limite) {
+    if (cantidadDinero > limite) {
       throw new MaximoExtraccionDiarioException("No puede extraer mas de $ " + 1000
           + " diarios, límite: " + limite);
     }
-    new Movimiento(LocalDate.now(), cuanto, false).agregateA(this); // Usar funcion agregarMovimiento en vez de esto
+    this.agregarMovimiento(LocalDate.now(), cantidadDinero, false); // Usar funcion agregarMovimiento en vez de esto
   }
 
   public void agregarMovimiento(LocalDate fecha, double cuanto, boolean esDeposito) {
