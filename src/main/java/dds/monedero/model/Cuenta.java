@@ -24,18 +24,18 @@ public class Cuenta {
 
   public void setMovimientos(List<Movimiento> movimientos) {
     this.movimientos = movimientos;
-  }
+  } //No tendria sentidopoder settear los movimientos sin modificar el saldo de la cuenta
 
-  public void poner(double cuanto) { //Nombre de la variable "cuanto" es poco declarativo, seria mejor "cantidadDinero"
-    if (cuanto <= 0) {
-      throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
+  public void poner(double cantidadDinero) { //Nombre de la variable "cuanto" es poco declarativo, seria mejor "cantidadDinero"
+    if (cantidadDinero <= 0) {
+      throw new MontoNegativoException(cantidadDinero + ": el monto a ingresar debe ser un valor positivo");
     }
 
     if (getMovimientos().stream().filter(movimiento -> movimiento.isDeposito()).count() >= 3) {
       throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
     }
 
-    new Movimiento(LocalDate.now(), cuanto, true).agregateA(this); // Usar funcion agregarMovimiento en vez de esto
+    new Movimiento(LocalDate.now(), cantidadDinero, true).agregateA(this); // Usar funcion agregarMovimiento en vez de esto
   }
 
   public void sacar(double cuanto) {//Nombre de la variable "cuanto" es poco declarativo, seria mejor "cantidadDinero"
